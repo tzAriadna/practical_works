@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+    <h2>Калькулятор расчета стоимости товаров</h2>
+    <form name="calculator">
+      <table>
+        <tr>
+          <td>Ваше имя:</td>
+          <td>
+            <input name="name" type="text" placeholder="Введите имя">
+          </td>
+        </tr>
+        <tr>
+          <td>Выберите товар:</td>
+          <td>
+            <select name="books">
+              <option value="1399">Лев Толстой "Война и мир"</option>
+              <option value="1200">Джордж Оруэлл "1984"</option>
+              <option value="3999" selected>Джеймс Джойс "Улисс"</option>
+              <option value="870">Уильям Фолкнер "Звук и ярость"</option>
+              <option value="1456">Карл Маркс "Капитал"</option>
+              <option value="2500">Томас Гоббс "Левиафан"</option>
+              <option value="1988">Джек Керуак "В дороге"</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>Количество товаров:</td>
+          <td>
+            <input name="amount" type="text" placeholder="Введите количество" value="1">
+          </td>
+        </tr>
+        <tr>
+          <td>Упаковать товар:</td>
+          <td>
+            <input name="package" type="checkbox">
+          </td>
+        </tr>
+      </table>
+    </form>
+    <span id="result"></span>
+
+    <!-- <script src="script.js"></script> -->
+    <script>
+      var form = document.forms.calculator;
+      var nameElem = form.elements.name;
+      nameElem.oninput = calculate;
+
+      var amountElem = form.elements.amount;
+      amountElem.onkeypress = function(e) {
+        e = e || event;
+        var chr = getChar(e);
+
+        if (e.ctrlKey || e.altKey || chr == null) return;
+        if (chr < '0' || chr > '9') return false;
+      }
+      amountElem.oninput = calculate;
+      amountElem.onpropertychange = function() {
+        event.propertyName == "value" && calculate();
+      }
+
+      var packageElem = form.elements.package;
+      packageElem.onclick = calculate;
+
+      var booksElem = form.elements.books;
+      booksElem.onchange = calculate;
+
+      function calculate() {
+        var sum = booksElem.value * amountElem.value;
+        if (packageElem.checked) {
+          sum = sum + (amountElem.value * 100);
+        }
+
+        if (nameElem.value) {
+          document.getElementById('result').innerHTML = nameElem.value + ', ваш заказ будет стоить ' + sum + 'р.'; 
+        } else {
+          document.getElementById('result').innerHTML = 'Ваш заказ будет стоить ' + sum + 'р.';  
+        }
+          
+      }
+      calculate();
+
+    </script>
+    <style>
+      table {
+        margin: 10px 0;
+      }
+      #result {
+        padding: 5px 10px;
+        border: 2px solid green;
+      }
+    </style>
+  </body>
+</html>

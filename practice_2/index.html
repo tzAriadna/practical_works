@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+    <div class="container">
+      <h2>Ипотечный калькулятор</h2>
+      <div class="row">
+        <div>
+          <h4>Расчёт ежемесячного платежа</h4>
+          <form id="form1">
+            <div>
+              <label for="sum1">Стоимость квартиры:</label>
+              <input type="text"  id="sum1" placeholder="Введите стоимость квартиры в рублях" value="1000000">
+            </div>
+            <div>
+              <label for="period1">Период:</label>
+              <input type="text" id="period1" placeholder="Введите срок кредита в годах" value="10">
+            </div>
+            <div>
+              <label for="rate1">Ставка:</label>
+              <input type="text" id="rate1" placeholder="Введите ставку в процентах" value="8">
+            </div>
+            <button type="submit" id="calc1">Рассчитать</button>
+						<label id="result1"></label>
+          </form>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div>
+          <h4>Расчёт срока</h4>
+          <form id="form2">
+            <div>
+              <label for="sum2">Стоимость квартиры:</label>
+              <input type="text" id="sum2" placeholder="Введите стоимость квартиры в рублях" value="">
+            </div>
+            <div>
+              <label for="payment2">Ежемесячный платеж:</label>
+              <input type="text" id="payment2" placeholder="Введите сумму ежемесячного платежа в рублях" value="">
+            </div>
+            <div>
+              <label for="rate2">Ставка:</label>
+              <input type="text" id="rate2" placeholder="Введите ставку в процентах" value="">
+            </div>
+            <button type="submit" id="calc2">Рассчитать</button>
+						<label id="result2"></label>
+          </form>
+        </div>
+      </div>
+      <br>
+    </div>
+    <script src="script.js"></script>
+    <script>
+
+			var form1 = document.querySelector('#form1'),
+					sum1 = document.querySelector('#sum1'),
+					period1 = document.querySelector('#period1'),
+					rate1 = document.querySelector('#rate1'),
+					calc1 = document.querySelector('#calc1');
+
+			var form2 = document.querySelector('#form2'),
+					sum2 = document.querySelector('#sum2'),
+					payment2 = document.querySelector('#payment2'),
+					rate2 = document.querySelector('#rate2'),
+					calc2 = document.querySelector('#calc2');
+
+			form1.addEventListener('submit', function(e) {
+					var elem = document.getElementById("result1");
+					e.preventDefault();
+					elem.innerHTML = 'Ежемесячный платеж, в рублях: ' + calculator.getPayment(sum1.value, period1.value, rate1.value);
+			}, false);
+
+			form2.addEventListener('submit', function(e) {
+					var elem = document.getElementById("result2");
+					e.preventDefault();
+					console.log(sum2.value, payment2.value, rate2.value);
+					elem.innerHTML = 'Срок, в месяцах: ' + calculator.getPeriod(sum2.value, payment2.value, rate2.value);
+			}, false);
+
+    </script>
+
+		<style>
+			form {
+				width: 350px;
+				display: flex;
+				flex-direction: column;
+			}
+			form div {
+				display: flex;
+				margin: 5px 0;
+				width: 100%;
+				justify-content: space-between;
+			}
+			input {
+				text-align: right;
+			}
+			button {
+				margin: 5px 0;
+			}
+		</style>
+  </body>
+</html>

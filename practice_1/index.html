@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+    <a href=#>Создать файл с сортировкой</a>
+		<script src="script.js"></script>
+    <script>
+		//запись в файл
+		document.getElementsByTagName('a')[0].onclick = function(){ 
+			var el = getResult();
+			var text = `Сортировка по возрасту: ${el.result1} Сортировка по заработной плате: ${el.result2}`;
+			var csvData = 'data:application/txt;charset=utf-8,' + encodeURIComponent(text);
+			this.href = csvData;
+			this.target = '_blank';
+			this.download = 'txt.txt';
+		}
+		</script>
+  </body>
+</html>
