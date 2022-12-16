@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+    <form id="form">
+      <h2>Выберите номер месяца</h2>
+      <input type="text" id="index" placeholder="Введите индекс" value="">
+      <button type="submit">Найти месяц</button>
+      <div id="result"></div>
+    </form>
+
+
+    <script>
+      var form = document.querySelector('#form'),
+          index = document.querySelector('#index');
+
+      form.addEventListener('submit', function(e) { //функция срабатываемая при нажатии на кнопку
+        var elem = document.getElementById("result");
+        e.preventDefault();
+        elem.innerHTML = 'Ответ: ' + errHandling(index.value);
+			}, false);
+
+      function getMonthName(mo) {
+        mo = mo - 1;
+        var months = ["Январь","Февраль","Март","Апрель","Май","Июнь","Июль",
+                      "Август","Сентябрь","Октябрь","Ноябрь","Декабрь"];
+        if (months[mo]) {
+          return months[mo];
+        } else {
+          throw new SyntaxError("Данные некорректны");
+        }
+      }
+
+      function errHandling(mo) {
+        let monthValue;
+        try {
+          monthValue = getMonthName(mo);
+        } catch (e) {
+          alert( "Введите корректный индекс, пожалуйста" );
+        }
+        return monthValue;
+      }
+      
+      
+    </script>
+  </body>
+</html>
